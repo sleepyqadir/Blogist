@@ -1,10 +1,43 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Alert, Button } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-
+import * as ImagePicker from "expo-image-picker";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
 const Form = ({ buttonTitle, onSubmit, initialState }) => {
   const [title, setTitle] = useState(initialState.title);
   const [content, setContent] = useState(initialState.content);
+  const [image, setImage] = useState("../../assets/blog.png");
+  const pickFromGallery = async () => {
+    const granted = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (granted) {
+      let data = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [3, 2],
+        quality: 0.75,
+      });
+      setImage(data.uri);
+    } else {
+      Alert("Permission required to access camera");
+    }
+  };
+  console.log(image);
+  const pickFromCamera = async () => {
+    const granted = await Permissions.askAsync(Permissions.CAMERA);
+    if (granted) {
+      let data = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [3, 2],
+        quality: 0.75,
+      });
+      console.log(data);
+    } else {
+      Alert("Permission required to access gallery");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.formLabel}>Enter Title:</Text>
@@ -23,23 +56,37 @@ const Form = ({ buttonTitle, onSubmit, initialState }) => {
         value={content}
         onChangeText={setContent}
       />
+
+      <TouchableOpacity
+        onPress={() => {
+          pickFromGallery();
+        }}
+      >
+        <View style={styles.ImagePicker}>
+          <Text style={styles.ImagePickerText}>
+            Pick an image from camera roll
+          </Text>
+        </View>
+      </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           const newPost = initialState.id
             ? {
                 title,
                 content,
+                image,
                 id: initialState.id,
               }
             : {
                 title,
                 content,
+                image,
               };
           onSubmit(newPost);
         }}
       >
         <View style={styles.formButton}>
-          <Text styles={styles.formButtonText}>{buttonTitle}</Text>
+          <Text style={styles.formButtonText}>{buttonTitle}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -79,10 +126,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    margin: 20,
+    margin: 60,
   },
   formButtonText: {
+    fontWeight: "bold",
     color: "#00473e",
     fontSize: 18,
+  },
+  ImagePicker: {
+    backgroundColor: "#475d5b",
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10,
+  },
+  ImagePickerText: {
+    color: "#f2f7f5",
   },
 });
