@@ -3,7 +3,8 @@ import { StyleSheet, Text, View, FlatList, Button } from "react-native";
 import { Context } from "../context/BlogContext";
 import BlogCard from "../components/BlogCard";
 const Home = ({ navigation }) => {
-  const { state} = useContext(Context);
+  const { state } = useContext(Context);
+  console.log(state);
   return (
     <View style={styles.container}>
       <FlatList
@@ -13,7 +14,8 @@ const Home = ({ navigation }) => {
             <BlogCard
               title={item.title}
               id={item.id}
-              key={item.id}
+              image={item.image}
+              key={`${item.id}`}
               navigation={navigation}
             />
           );
@@ -28,7 +30,6 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     backgroundColor: "#f2f7f5",
   },
 });
