@@ -57,7 +57,12 @@ export default function App() {
                       navigation.navigate("Edit", { id: route.params.id });
                     }}
                   >
-                    <FontAwesome name="pencil" size={30} color="black" />
+                    <FontAwesome
+                      style={{ marginRight: 20 }}
+                      name="pencil"
+                      size={30}
+                      color="#f2f7f5"
+                    />
                   </TouchableOpacity>
                 );
               },
