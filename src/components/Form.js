@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Alert, Button } from "react-native";
+import { StyleSheet, Text, View, Alert, Button, Image } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
-import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
+import illustration from "../../assets/add.png";
 const Form = ({ buttonTitle, onSubmit, initialState }) => {
   const [title, setTitle] = useState(initialState.title);
   const [content, setContent] = useState(initialState.content);
@@ -40,6 +40,7 @@ const Form = ({ buttonTitle, onSubmit, initialState }) => {
 
   return (
     <View style={styles.container}>
+      <Image style={styles.illustration} source={illustration} />
       <Text style={styles.formLabel}>Enter Title:</Text>
       <TextInput
         placeholder="title"
@@ -100,6 +101,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f2f7f5",
   },
+  illustration: {
+    flex: 1,
+    width: 250,
+    alignSelf: "center",
+  },
   formLabel: {
     fontSize: 18,
     fontWeight: "bold",
@@ -126,7 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    margin: 60,
+    margin: 40,
   },
   formButtonText: {
     fontWeight: "bold",

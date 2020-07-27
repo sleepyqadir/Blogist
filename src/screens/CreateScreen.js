@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Context } from "../context/BlogContext";
 import Form from "../components/Form";
@@ -20,5 +20,3 @@ const CreateScreen = ({ navigation }) => {
 };
 
 export default CreateScreen;
-
-

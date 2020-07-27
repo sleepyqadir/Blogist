@@ -10,18 +10,15 @@ const EditScreen = ({ route, navigation }) => {
     return blog.id === id;
   });
   return (
-    <View>
-      <Text>Edit -{blogPost.title}</Text>
-      <Form
-        buttonTitle="Edit Post"
-        onSubmit={(newBlog) => {
-          editBlogPost(newBlog, () => {
-            navigation.pop();
-          });
-        }}
-        initialState={blogPost}
-      />
-    </View>
+    <Form
+      buttonTitle="Edit Post"
+      onSubmit={(newBlog) => {
+        editBlogPost(newBlog, () => {
+          navigation.pop();
+        });
+      }}
+      initialState={blogPost}
+    />
   );
 };
 
