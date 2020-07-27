@@ -31,7 +31,7 @@
 
 ```ruby
 # Clone this repository
-$ git clone 
+$ git clone https://github.com/AQadir64/Blogist.git     
 
 # Go into the repository
 $ cd blogist
